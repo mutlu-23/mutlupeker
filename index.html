@@ -1147,9 +1147,10 @@
 </div>
 
 <!-- ============================= AOS (Animate On Scroll) ============================= -->
+<!-- ============================= AOS (scroll‑animations) ============================= -->
 <script src="https://unpkg.com/aos@2.3.4/dist/aos.js"></script>
 <script>
-  AOS.init({once:true,offset:120,duration:700,easing:'ease-out-cubic'});
+  AOS.init({once:true, offset:120, duration:700, easing:'ease-out-cubic'});
 </script>
 
 <!-- ============================= THREE.JS – CUBE‑LIKE PARTICLE BACKGROUND ============================= -->
@@ -1175,11 +1176,13 @@
   // Color each vertex with gradient tones
   const colors = [];
   const color = new THREE.Color();
-  geometry.attributes.position.array.forEach((v,i)=>{ if(i%3===0){
-    const t = i/geometry.attributes.position.array.length;
-    color.setHSL(0.6*t,0.6,0.8);
-    colors.push(color.r,color.g,color.b);
-  }});
+  geometry.attributes.position.array.forEach((v,i)=>{
+    if(i%3===0){
+      const t = i/geometry.attributes.position.array.length;
+      color.setHSL(0.6*t,0.6,0.8);
+      colors.push(color.r,color.g,color.b);
+    }
+  });
   geometry.setAttribute('color', new THREE.Float32BufferAttribute(colors,3));
 
   const mesh = new THREE.Mesh(geometry, material);
@@ -1199,7 +1202,7 @@
     camera.aspect = w/h;
     camera.updateProjectionMatrix();
   }
-  window.addEventListener('resize',onResize);
+  window.addEventListener('resize', onResize);
   onResize();
 
   // Animation loop
@@ -1215,13 +1218,12 @@
 <!-- ============================= MAIN LOGIC (Print, Avatar, Sidebar, Top) ============================= -->
 <script>
   (function(){
-    const $ = (s,c=document)=>c.querySelector(s);
+    const $  = (s,c=document)=>c.querySelector(s);
     const $$ = (s,c=document)=>Array.from(c.querySelectorAll(s));
-    const sidebar = $('#sidebar');
+
+    const sidebar   = $('#sidebar');
     const toggleBtn = $('.toggle-sidebar');
-    const topBtn = $('#topBtn');
-    const printBtn = $('#printBtn');
-    const printFab = $('#printFab');
+    const topBtn    = $('#topBtn');
 
     /* ----------------- Sidebar Toggle (mobile) ----------------- */
     toggleBtn.addEventListener('click', e=>{
@@ -1247,15 +1249,16 @@
 
     /* ----------------- Avatar Upload (localStorage) ----------------- */
     const AVATAR_KEY = 'mutlu_peker_avatar';
-    const avatar = $('#avatar');
-    const avatarOverlay = $('#avatarWrap');
-    const avatarInput = $('#avatarInput');
-    const setAvatar = url =>{
+    const avatar      = $('#avatar');
+    const avatarWrap = $('#avatarWrap');
+    const avatarInput= $('#avatarInput');
+
+    const setAvatar = url=>{
       avatar.style.backgroundImage = `url(${url})`;
-      avatar.innerHTML = ''; // remove default icon
+      avatar.innerHTML = '';               // varsayılan ikon silinir
     };
     try{ const saved = localStorage.getItem(AVATAR_KEY); if(saved) setAvatar(saved); }catch(e){}
-    avatarOverlay.addEventListener('click',()=>avatarInput?.click());
+    avatarWrap.addEventListener('click',()=>avatarInput?.click());
     avatarInput?.addEventListener('change',function(){
       const file = this.files && this.files[0];
       if(!file) return;
@@ -1265,28 +1268,27 @@
       this.value = null;
     });
 
-    /* ----------------- Print Logic (3‑Page Guard) ----------------- */
-    const isInIframe = (()=>{ try{return window.self!==window.top; }catch(e){return true;} })();
-    const triggerPrint = ()=>{
-      if(isInIframe){
-        // Açılır pencere engeli var ise kullanıcıyı bilgilendir
-        const newTab = window.open(window.location.href,'_blank');
-        if(!newTab){
-          alert('Pop‑up engelleyiciyi devre dışı bırakın ve tekrar deneyin.');
-          return;
-        }
-        // URL’ye #print ekleyerek otomatik print tetikle
-        newTab.location.replace(window.location.href.split('#')[0]+'#print');
-      }else{
-        window.print();
+    /* ----------------- Print Logic – 3‑page (print.html) ----------------- */
+    /**
+     * Açılan sekmede print.html dosyasını gösterir.
+     * print.html içinde otomatik `window.print()` tanımlı olduğundan,
+     * sekme açıldığında doğrudan yazdırı / PDF diyalogu gelir.
+     */
+    const openPrintVersion = e=>{
+      e.preventDefault();
+      // Mevcut dosya yolu (…/index.html) → …/print.html
+      const url = location.pathname.replace(/[^/]+$/,'') + 'print.html';
+      const win = window.open(url, '_blank');   // yeni sekme
+      if(!win){
+        alert('Pop‑up engelleyiciyi devre dışı bırakın ve tekrar deneyin.');
       }
     };
-    printBtn?.addEventListener('click',triggerPrint);
-    printFab?.addEventListener('click',triggerPrint);
-    // Otomatik print (iframe dışı, #print hash geldiğinde)
-    if(!isInIframe && window.location.hash==='#print'){
-      window.addEventListener('load',()=>setTimeout(()=>{ try{window.print();}catch(e){} },800));
-    }
+
+    // Buton ve FAB üzerindeki ikinci buton (yazdır ikonu)
+    const printBtn = $('#printBtn');
+    const printFab = $('#printFab');
+    printBtn?.addEventListener('click', openPrintVersion);
+    printFab?.addEventListener('click', openPrintVersion);
 
     /* ----------------- Links – external açılır sekmede ----------------- */
     $$('a[href]').forEach(a=>{
@@ -1302,16 +1304,21 @@
     const maxTilt = 6;
     tiltEls.forEach(el=>{
       let raf;
-      el.addEventListener('mousemove',e=>{
-        const r = el.getBoundingClientRect();
-        const x = (e.clientX - r.left)/r.width;
-        const y = (e.clientY - r.top)/r.height;
-        const rx = (0.5 - y)*maxTilt;
-        const ry = (x - 0.5)*maxTilt;
+      el.addEventListener('mousemove', e=>{
+        const r  = el.getBoundingClientRect();
+        const x  = (e.clientX - r.left) / r.width;
+        const y  = (e.clientY - r.top)  / r.height;
+        const rx = (0.5 - y) * maxTilt;
+        const ry = (x - 0.5) * maxTilt;
         if(raf) cancelAnimationFrame(raf);
-        raf = requestAnimationFrame(()=>{ el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0px)`; });
+        raf = requestAnimationFrame(()=>{
+          el.style.transform = `perspective(800px) rotateX(${rx}deg) rotateY(${ry}deg) translateZ(0px)`;
+        });
       });
-      el.addEventListener('mouseleave',()=>{ el.style.transform=''; if(raf) cancelAnimationFrame(raf); });
+      el.addEventListener('mouseleave', ()=>{
+        el.style.transform = '';
+        if(raf) cancelAnimationFrame(raf);
+      });
     });
 
   })();
