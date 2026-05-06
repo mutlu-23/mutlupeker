@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="tr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mutlu Peker | Profesyonel Özgeçmiş (3 Sayfa)</title>
+    <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect width='100' height='100' rx='20' fill='%23002255'/%3E%3Ctext x='50%25' y='50%25' font-size='48' font-weight='bold' fill='white' text-anchor='middle' dominant-baseline='middle'%3EMP%3C/text%3E%3C/svg%3E">
+    
+    <!-- Basit, yazıcı dostu fontlar -->
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    
+    <style>
+        /* RESET & TEMEL */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: #e2e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Helvetica, sans-serif;
+            line-height: 1.45;
+            color: #0a0f1c;
+            padding: 24px 16px;
+        }
+
+        /* KAĞIT BOYUTU (A4) */
+        .cv-page {
+            max-width: 210mm;
+            width: 100%;
+            margin: 16px auto;
+            background: white;
+            box-shadow: 0 20px 35px -12px rgba(0, 0, 0, 0.2);
+            padding: 12mm 12mm 10mm 12mm;
+            position: relative;
+            page-break-after: always;   /* her sayfa arkadan kesmeli */
+            break-inside: avoid;
+            border-radius: 4px;
+        }
+
+        /* son sayfada fazla boşluk bırakma */
+        .cv-page:last-child {
+            page-break-after: auto;
+            margin-bottom: 24px;
+        }
+
+        /* tipografi */
+        h1 {
+            font-size: 28px;
+            font-weight: 700;
+            letter-spacing: -0.5px;
+            color: #0b2b4f;
+            margin-bottom: 4px;
+        }
+
+        h2 {
+            font-size: 18px;
+            font-weight: 600;
+            color: #1e4a76;
+            border-bottom: 2px solid #1e4a76;
+            padding-bottom: 4px;
+            margin-top: 12px;
+            margin-bottom: 10px;
+            display: inline-block;
+        }
+
+        h3 {
+            font-size: 16px;
+            font-weight: 700;
+            margin-top: 8px;
+            margin-bottom: 4px;
+            color: #0c4a6e;
+        }
+
+        h4 {
+            font-size: 15px;
+            font-weight: 600;
+            margin: 6px 0 2px;
+            color: #1e293b;
+        }
+
+        .subhead {
+            font-size: 14px;
+            font-weight: 500;
+            color: #1e4a76;
+            margin-bottom: 8px;
+        }
+
+        .inline-list {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 12px;
+            margin: 8px 0 12px;
+            font-size: 13px;
+            color: #2d3a4e;
+        }
+
+        .inline-list i {
+            width: 20px;
+            color: #2c6e9e;
+        }
+
+        .contact-line {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 20px;
+            background: #f0f4f9;
+            padding: 8px 14px;
+            border-radius: 12px;
+            margin: 12px 0 6px;
+            font-size: 13px;
+            font-weight: 500;
+        }
+
+        .contact-line span {
+            display: inline-flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        hr {
+            margin: 10px 0;
+            border: 0;
+            height: 1px;
+            background: #cbd5e1;
+        }
+
+        /* iş deneyimi kartları (liste) */
+        .exp-item {
+            margin-bottom: 18px;
+            page-break-inside: avoid;
+        }
+
+        .exp-header {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            align-items: baseline;
+            margin-bottom: 4px;
+        }
+
+        .exp-title {
+            font-weight: 800;
+            font-size: 16px;
+            color: #0f3b5f;
+        }
+
+        .exp-period {
+            font-size: 12px;
+            font-weight: 500;
+            background: #eef2ff;
+            padding: 2px 8px;
+            border-radius: 30px;
+            color: #1e4a76;
+        }
+
+        .exp-company {
+            font-weight: 600;
+            font-size: 14px;
+            color: #2c5a7a;
+            margin-bottom: 6px;
+        }
+
+        .exp-desc {
+            font-size: 13px;
+            line-height: 1.5;
+            margin-left: 8px;
+            padding-left: 12px;
+            border-left: 3px solid #90b4d9;
+            color: #1f2a44;
+        }
+
+        .exp-desc ul {
+            margin: 4px 0 0 18px;
+        }
+
+        .exp-desc li {
+            margin: 3px 0;
+        }
+
+        /* beceriler / sertifikalar grid */
+        .grid-2 {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 16px;
+            margin: 12px 0;
+        }
+
+        .skill-block {
+            flex: 1;
+            min-width: 200px;
+            background: #f8fafc;
+            padding: 8px 12px;
+            border-radius: 14px;
+        }
+
+        .skill-block strong {
+            color: #0b4f6c;
+            font-size: 14px;
+            display: block;
+            margin-bottom: 6px;
+        }
+
+        .skill-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+        }
+
+        .skill-tag {
+            background: white;
+            border: 1px solid #bfd9f0;
+            padding: 2px 8px;
+            font-size: 11px;
+            border-radius: 30px;
+            font-weight: 500;
+            color: #1e3a5f;
+        }
+
+        .ref-item {
+            display: flex;
+            justify-content: space-between;
+            flex-wrap: wrap;
+            background: #f9fbfe;
+            padding: 8px 12px;
+            margin-bottom: 10px;
+            border-radius: 12px;
+            border-left: 4px solid #1e4a76;
+            font-size: 13px;
+        }
+
+        .ref-name {
+            font-weight: 700;
+        }
+
+        .cert-list {
+            columns: 2;
+            column-gap: 28px;
+            list-style: none;
+            margin-top: 6px;
+        }
+
+        .cert-list li {
+            margin-bottom: 6px;
+            font-size: 13px;
+            break-inside: avoid;
+            page-break-inside: avoid;
+        }
+
+        .cert-list li i {
+            color: #2b6e9e;
+            width: 20px;
+        }
+
+        footer.page-number {
+            text-align: center;
+            font-size: 10px;
+            color: #6c7a91;
+            margin-top: 18px;
+            border-top: 1px dashed #cbd5e1;
+            padding-top: 8px;
+        }
+
+        /* yazdırma optimizasyonları (sadece print medyası için) */
+        @media print {
+            body {
+                background: white;
+                padding: 0;
+                margin: 0;
+            }
+            .cv-page {
+                margin: 0;
+                padding: 14mm 12mm 12mm 12mm;
+                box-shadow: none;
+                border-radius: 0;
+                page-break-after: always;
+                break-inside: avoid;
+            }
+            .contact-line {
+                background: #f1f5f9;
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            .skill-block, .ref-item, .exp-period {
+                -webkit-print-color-adjust: exact;
+                print-color-adjust: exact;
+            }
+            a {
+                text-decoration: none;
+                color: #0f3b5f;
+            }
+            .inline-list i, .cert-list li i {
+                color: #2c6e9e !important;
+            }
+            footer.page-number {
+                position: relative;
+                bottom: 0;
+            }
+        }
+
+        @media (max-width: 600px) {
+            .cert-list {
+                columns: 1;
+            }
+            .exp-header {
+                flex-direction: column;
+                align-items: flex-start;
+                gap: 4px;
+            }
+            .cv-page {
+                padding: 8mm;
+            }
+        }
+    </style>
+</head>
+<body>
+
+    <!-- SAYFA 1 : KİŞİSEL BİLGİLER, ÖZET, TEMEL BECERİLER, İŞ DENEYİMİ İLK 2 POZİSYON -->
+    <div class="cv-page">
+        <!-- Başlık ve iletişim -->
+        <h1>MUTLU PEKER</h1>
+        <div class="subhead">Kıdemli Elektrik &amp; I&amp;C Teknisyeni | 24+ Yıl Saha Deneyimi</div>
+        
+        <div class="contact-line">
+            <span><i class="fas fa-phone-alt"></i> +90 532 322 8036</span>
+            <span><i class="fas fa-envelope"></i> peker.23@gmail.com</span>
+            <span><i class="fas fa-globe"></i> www.mutlupeker.com</span>
+            <span><i class="fas fa-map-marker-alt"></i> Elazığ / Türkiye</span>
+        </div>
+
+        <div class="inline-list">
+            <span><i class="fas fa-calendar-alt"></i> Doğum: 01.01.1979</span>
+            <span><i class="fas fa-id-card"></i> B Sınıfı Ehliyet</span>
+            <span><i class="fas fa-shield-alt"></i> Askerlik: 2001 (Tamamlandı)</span>
+        </div>
+
+        <!-- Kısa Özet Profili -->
+        <h2>Profesyonel Özet</h2>
+        <p style="font-size:13.5px; margin-bottom:12px;">Enerji üretimi, endüstriyel otomasyon ve elektrik sistemlerinde 24 yılı aşkın saha tecrübesi. PLC (Siemens), SCADA, koruma röleleri, jeneratör senkronizasyonu, VFD/Soft Starter ve enstrümantasyon alanlarında güçlü uygulama yetkinliği. Tam otomatik kontrol panolarının projelendirilmesi, devreye alınması ve arıza analizi konularında kanıtlanmış başarı. Yenilikçi IoT çözümleri (Arduino/ESP) ile süreç iyileştirmeleri.</p>
+
+        <!-- Yetkinlik Blokları  (yazıcı dostu) -->
+        <h2>Temel Teknik Yetkinlikler</h2>
+        <div class="grid-2">
+            <div class="skill-block">
+                <strong>⚙️ Otomasyon & Kontrol</strong>
+                <div class="skill-tags">
+                    <span class="skill-tag">Siemens S7-300/400/1200/1500</span>
+                    <span class="skill-tag">TIA Portal / WinCC</span>
+                    <span class="skill-tag">SCADA/HMI</span>
+                    <span class="skill-tag">Profibus/Modbus</span>
+                    <span class="skill-tag">Wecs 7000</span>
+                    <span class="skill-tag">Woodward/AVR/PMU</span>
+                </div>
+            </div>
+            <div class="skill-block">
+                <strong>⚡ Güç Sistemleri</strong>
+                <div class="skill-tags">
+                    <span class="skill-tag">OG (34.5 kV)</span>
+                    <span class="skill-tag">Trafo Bakım/Test</span>
+                    <span class="skill-tag">Senkronizasyon</span>
+                    <span class="skill-tag">VFD / Soft Starter</span>
+                    <span class="skill-tag">Koruma Röleleri</span>
+                    <span class="skill-tag">Pano Tasarımı (IEC/UL)</span>
+                </div>
+            </div>
+        </div>
+        <div class="grid-2" style="margin-top:-6px;">
+            <div class="skill-block">
+                <strong>📏 Enstrümantasyon</strong>
+                <div class="skill-tags">
+                    <span class="skill-tag">Basınç/Sıcaklık/Seviye sensörleri</span>
+                    <span class="skill-tag">Transmitter & Switch</span>
+                    <span class="skill-tag">Kalibrasyon & Devreye Alma</span>
+                    <span class="skill-tag">Sel./Pnömatik valfler</span>
+                </div>
+            </div>
+            <div class="skill-block">
+                <strong>🖥️ Gömülü Sistemler / IoT</strong>
+                <div class="skill-tags">
+                    <span class="skill-tag">Arduino / ESP32</span>
+                    <span class="skill-tag">C/C++ , PlatformIO</span>
+                    <span class="skill-tag">BLE / GSM modül entegrasyonu</span>
+                    <span class="skill-tag">Web arayüz (temel)</span>
+                </div>
+            </div>
+        </div>
+
+        <!-- İŞ DENEYİMİ (ilk 2 tecrübe sayfa 1'de) -->
+        <h2>İş Deneyimi</h2>
+        
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="exp-title">Kıdemli Elektrik & I&amp;C Teknisyeni</span>
+                <span class="exp-period">Şubat 2017 – Devam</span>
+            </div>
+            <div class="exp-company">Fox Pol Energy · Elazığ, Türkiye (150 MW kombine santral)</div>
+            <div class="exp-desc">
+                <ul>
+                    <li>Santral I&amp;C bakım, onarım ve devreye alma süreçlerini yönetme; PLC (Siemens), SCADA arızalarına proje bazlı müdahale.</li>
+                    <li>Profibus haberleşme sorunları çözümü, koruma röleleri (jeneratör / trafo) konfigürasyonu ve testleri.</li>
+                    <li>Jeneratör senkronizasyon sistemleri (Woodward, Wecs 7000, AVR, PMU) üzerinde arıza giderme ve yedekleme/restore işlemleri.</li>
+                    <li>Saha enstrümanları (basınç, Pt100, termokupl, seviye, hız) kalibrasyonu ve arıza tespiti; frekans konvertörleri/ soft starter projeleri.</li>
+                    <li>Yardımcı sistemler (kompresör, boiler, separator, soğutma) bakım planlaması ve acil arıza çözümü.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="exp-title">Vardiya Amiri</span>
+                <span class="exp-period">Ekim 2010 – Şubat 2017</span>
+            </div>
+            <div class="exp-company">Gama Energy · Çakırlar HES, Artvin (2×8.2 MW Pelton)</div>
+            <div class="exp-desc">
+                <ul>
+                    <li>Hidroelektrik santralin güvenli işletilmesi, türbin/jeneratör koruma sistemleri, AC/DC beslemeler ve şalt sahası yönetimi.</li>
+                    <li>Arızalara anında müdahale, elektrik & enstrüman bakım ekibi koordinasyonu, periyodik bakım föylerinin oluşturulması.</li>
+                    <li>Santral verimliliğini artırmak için otomasyon iyileştirmeleri ve röle koruma testleri.</li>
+                </ul>
+            </div>
+        </div>
+
+        <footer class="page-number">1 / 3</footer>
+    </div>
+
+    <!-- SAYFA 2: DEVAM EDEN İŞ DENEYİMİ + SEÇKİN PROJELER + EĞİTİM -->
+    <div class="cv-page">
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="exp-title">Elektrik Elektronik Teknisyeni / Bakım Formeni</span>
+                <span class="exp-period">Aralık 2006 – Ekim 2010</span>
+            </div>
+            <div class="exp-company">Karadeniz Enerji Yatırımları · Silopi, Şırnak (170 MW motorlu santral)</div>
+            <div class="exp-desc">
+                <ul>
+                    <li>Santralde elektrik bakım formeni olarak makine, otomasyon ve kumanda kontrol sistemlerinde (röleli ve PLC tabanlı) sorumluluk.</li>
+                    <li>Otomasyon panoları ve projelerinin takibi, pano yenileme, arıza teşhisi ve onarım; kumanda-kontrol panoları dizaynı.</li>
+                    <li>Sensör, transmitter ve valf arızalarına hızlı müdahale; yedek parça yönetimi ve iyileştirme çalışmaları.</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="exp-item">
+            <div class="exp-header">
+                <span class="exp-title">Elektrik Elektronik Teknisyeni</span>
+                <span class="exp-period">Haziran 2001 – Nisan 2007</span>
+            </div>
+            <div class="exp-company">NV Turkse Perenco · Petrol Üretim Tesisi, Diyarbakır</div>
+            <div class="exp-desc">
+                <ul>
+                    <li>Petrol sahası elektrik santralinde vardiya teknisyeni: OG hatları (34.5 kV) ve trafo bakım/arıza giderme.</li>
+                    <li>Caterpillar jeneratör revizyonları (3412/3512/3516/3616) ve Kuhse senkronizasyon sistemleri çalışmaları.</li>
+                    <li>Arızalı ithal jeneratör kontrol kartlarına alternatif yerli kart entegrasyonu ile sistemleri yeniden devreye alma.</li>
+                    <li>Kompanzasyon, otomasyon ve koruma röle sistemlerinin bakım ve onarımı.</li>
+                </ul>
+            </div>
+        </div>
+
+        <!-- ÖNE ÇIKAN PROJELER (Baskıda önemli) -->
+        <h2>Öne Çıkan Projeler</h2>
+        <div style="margin-bottom: 12px;">
+            <h4 style="margin-bottom: 2px;">🔧 Jeneratör Kartı Uyarlaması (Elcos Kart Yerine Yerli Tasarım)</h4>
+            <p style="font-size: 13px; margin: 0 0 10px 0;">Temin edilemeyen ithal jeneratör kontrol kartı fonksiyonlarını karşılayan özel devre tasarlandı ve jeneratör başarıyla devreye alındı.</p>
+            
+            <h4 style="margin-bottom: 2px;">📡 RF Kontrollü Uzaktan Kesici Sistemi</h4>
+            <p style="font-size: 13px; margin: 0 0 10px 0;">Santral dışındaki uzak OG kesicilerinin merkez kontrol odasından RF modüllerle kablosuz kontrolü sağlandı, güvenlik ve operasyonel hız artırıldı.</p>
+            
+            <h4 style="margin-bottom: 2px;">🎛️ GEA Seperatör Kontrol Modülü Optimizasyonu</h4>
+            <p style="font-size: 13px; margin: 0 0 10px 0;">Endüstriyel seperatörlerde mevcut kontrol mantığı iyileştirilerek tek özel modül ile çift seperatör kontrolü ve izlemesi gerçekleştirildi.</p>
+            
+            <h4 style="margin-bottom: 2px;">🌐 ESP32 ile Araç Kontrol & Telemetri Sistemi</h4>
+            <p style="font-size: 13px; margin: 0 0 6px 0;">Bluetooth Low Energy ve Bluetooth Classic kullanarak araçlar için güvenli uzaktan kontrol ve mobil uyumlu takip sistemi geliştirildi.</p>
+        </div>
+
+        <h2>Eğitim</h2>
+        <div class="exp-item" style="margin-bottom: 5px;">
+            <div class="exp-header">
+                <span class="exp-title">Elektrik Elektronik Bölümü</span>
+                <span class="exp-period">1997</span>
+            </div>
+            <div class="exp-company">Baskil Teknik Lisesi · Elazığ (Teknik Lise)</div>
+            <div class="exp-desc" style="border-left-color:#90b4d9;">Elektrik tesisat, kumanda-kontrol sistemleri ve elektronik temelleri üzerine teknik eğitim.</div>
+        </div>
+        
+        <footer class="page-number">2 / 3</footer>
+    </div>
+
+    <!-- SAYFA 3: SERTİFİKALAR, YABANCI DİL, REFERANSLAR VE DİĞER DETAYLAR -->
+    <div class="cv-page">
+        <h2>Sertifikalar & Mesleki Gelişim</h2>
+        <ul class="cert-list">
+            <li><i class="fas fa-check-circle"></i> A2 İngilizce Sertifikası – İstanbul Enstitüsü (2021)</li>
+            <li><i class="fas fa-check-circle"></i> Wordpress Sertifikası – İstanbul Enstitüsü (2021)</li>
+            <li><i class="fas fa-check-circle"></i> Elektrik-Elektronik Pano Montörlüğü – MEB (1997)</li>
+            <li><i class="fas fa-check-circle"></i> İlk Yardım Yetki Sertifikası – Kızılay / Sağlık Bakanlığı</li>
+            <li><i class="fas fa-check-circle"></i> Yangına Müdahale Eğitimi – İstanbul BŞB İtfaiyesi</li>
+            <li><i class="fas fa-check-circle"></i> Temel İş Sağlığı ve Güvenliği – Çoklu Firma içi Eğitimler</li>
+            <li><i class="fas fa-check-circle"></i> Siemens S7-1200/1500 Temel Programlama – Sertifika (Kurumsal)</li>
+        </ul>
+
+        <h2>Yabancı Dil</h2>
+        <div class="skill-block" style="margin-top: 6px; margin-bottom: 16px;">
+            <strong><i class="fas fa-language"></i> İngilizce</strong>
+            <div style="display: flex; justify-content: space-between; flex-wrap: wrap;">
+                <span>Okuma / Yazma: Orta seviye (B1)</span>
+                <span>Teknik doküman anlama ve e-posta yazışmaları yetkin</span>
+            </div>
+            <div style="background:#e2e8f0; height: 6px; width: 100%; border-radius: 4px; margin: 8px 0 2px;"><div style="width: 55%; background:#1e4a76; height: 6px; border-radius: 4px;"></div></div>
+        </div>
+
+        <h2>Referanslar (İletişim izni alınmıştır)</h2>
+        <div class="ref-item">
+            <div><span class="ref-name">Süleyman YÜKSEL</span> – Elektrik Mühendisi, Foxpol Energy</div>
+            <a href="tel:05453789640" style="font-size:12px;"><i class="fas fa-phone-alt"></i> 0545 378 9640</a>
+        </div>
+        <div class="ref-item">
+            <div><span class="ref-name">Hasan BİLBOĞA</span> – Elektrik I&C Teknisyeni, Karadeniz Enerji</div>
+            <a href="tel:05365939023" style="font-size:12px;"><i class="fas fa-phone-alt"></i> 0536 593 9023</a>
+        </div>
+        <div class="ref-item">
+            <div><span class="ref-name">Uğur NAL</span> – HES Müdürü, Gama Enerji</div>
+            <a href="tel:05305005155" style="font-size:12px;"><i class="fas fa-phone-alt"></i> 0530 500 5155</a>
+        </div>
+        <div class="ref-item">
+            <div><span class="ref-name">Armağan ULUSÖVER</span> – Teknik Müdür, Wärtsilä Türkiye Distribütörü</div>
+            <a href="tel:05332805258" style="font-size:12px;"><i class="fas fa-phone-alt"></i> 0533 280 5258</a>
+        </div>
+
+        <!-- Ek not: seyahat esnekliği, ek beceriler -->
+        <hr>
+        <div style="margin-top: 12px; font-size: 12px; display: flex; justify-content: space-between; flex-wrap: wrap;">
+            <span><i class="fas fa-car"></i> Türkiye geneli seyahate hazır</span>
+            <span><i class="fas fa-microchip"></i> Arduino / ESP / IoT meraklısı</span>
+            <span><i class="fas fa-project-diagram"></i> Proje bazlı arıza takibi / kök neden analizi</span>
+        </div>
+        <footer class="page-number">3 / 3</footer>
+    </div>
+
+    <!-- PRINT OTOMASYON: sayfa yüklendiğinde doğrudan yazdırma penceresi (isteğe bağlı) -->
+    <script>
+        (function() {
+            // Kullanıcı deneyimi: buton koymadan otomatik print istemiyoruz çünkü istenmeyebilir.
+            // Ancak mevcut tasarımı "print butonu" ile kontrol etmek iyidir.
+            // Sayfa sağ alt köşede ufak bir buton oluşturulabilir fakat yazdırma esnasında görünmesin.
+            // Sadece ekranda print butonu göster.
+            const printBtn = document.createElement('button');
+            printBtn.innerText = '🖨️ Yazdır / PDF Kaydet (3 Sayfa)';
+            printBtn.style.position = 'fixed';
+            printBtn.style.bottom = '20px';
+            printBtn.style.right = '20px';
+            printBtn.style.zIndex = '1000';
+            printBtn.style.backgroundColor = '#1e4a76';
+            printBtn.style.color = 'white';
+            printBtn.style.border = 'none';
+            printBtn.style.padding = '8px 16px';
+            printBtn.style.borderRadius = '40px';
+            printBtn.style.fontWeight = 'bold';
+            printBtn.style.fontFamily = 'Inter, sans-serif';
+            printBtn.style.cursor = 'pointer';
+            printBtn.style.boxShadow = '0 2px 10px rgba(0,0,0,0.2)';
+            printBtn.style.border = '1px solid white';
+            document.body.appendChild(printBtn);
+            printBtn.addEventListener('click', () => {
+                window.print();
+            });
+            // Bonus: yazdırma sırasında buton görünmesin.
+            const style = document.createElement('style');
+            style.textContent = '@media print { button { display: none !important; } .cv-page { margin: 0; padding: 1.2cm; } }';
+            document.head.appendChild(style);
+        })();
+    </script>
+</body>
+</html>
